@@ -92,7 +92,11 @@ public:
             last_flush_timeout = data;
             return;
         }
-        if ((addr & SLOT_OFFSET) == 1) {
+	// g++ version 9.2.1 has a problem with         if ((addr & (SLOT_OFFSET)) == 1) {
+	// complaining that "bitwise comparison always evaluates to false"
+	// This is, of course, baloney.  But when g++ v9 complains it often means
+	// that it is about to do something wrong.
+        if (((addr & SLOT_OFFSET) & 1) == (addr & SLOT_OFFSET)) {	  
             UHD_LOG_INFO("MOCK_REG_IFACE",
                 "Set flush/reset bits to flush=" << (data & 0x1) << ",ctrl_rst="
                                                  << ((data >> 1) & 0x1 >> 1)

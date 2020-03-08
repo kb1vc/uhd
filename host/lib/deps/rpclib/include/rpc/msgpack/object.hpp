@@ -603,22 +603,23 @@ object::object(const T& v, clmdep_msgpack::zone* z)
 
 inline object::object(const msgpack_object& o)
 {
-    // FIXME beter way?
+    // FIXME beter way? Sigh.  This is really quite bad.
+    // 
     std::memcpy(this, &o, sizeof(o));
 }
 
 inline void operator<< (clmdep_msgpack::object& o, const msgpack_object& v)
 {
-    // FIXME beter way?
-    std::memcpy(&o, &v, sizeof(v));
+  // This is far better than the memcpy scheme, even if it may patching
+  // up some very bad design. -- kb1vc
+  o = clmdep_msgpack::object(v);
 }
 
 inline object::operator msgpack_object() const
 {
-    // FIXME beter way?
-    msgpack_object obj;
-    std::memcpy(&obj, this, sizeof(obj));
-    return obj;
+    // This is far better than the memcpy scheme, even if it may patching
+    // up some very bad design. -- kb1vc
+    return msgpack_object(*this);
 }
 
 

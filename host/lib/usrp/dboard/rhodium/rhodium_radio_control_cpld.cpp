@@ -16,6 +16,7 @@ using namespace uhd::rfnoc;
 
 namespace {
 
+UHD_UNUSED(const char* rx_band_to_log(rhodium_radio_control_impl::rx_band rx_band));  
 const char* rx_band_to_log(rhodium_radio_control_impl::rx_band rx_band)
 {
     switch (rx_band) {
@@ -42,6 +43,7 @@ const char* rx_band_to_log(rhodium_radio_control_impl::rx_band rx_band)
     }
 }
 
+UHD_UNUSED(const char* tx_band_to_log(rhodium_radio_control_impl::tx_band tx_band));
 const char* tx_band_to_log(rhodium_radio_control_impl::tx_band tx_band)
 {
     switch (tx_band) {
